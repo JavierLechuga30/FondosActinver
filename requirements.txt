@@ -6,7 +6,6 @@ pandas
 pandas_datareader 
 datetime
 numpy 
-plotly.graph_objs 
 flask 
 plotly.express 
 gunicorn
