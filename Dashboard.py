@@ -28,6 +28,7 @@ import plotly.express as px
 
 
 app = Flask(__name__)
+server=app.server
 
 #lIMPIEZA CETES
 cete=pd.read_csv('Cetes.csv')
