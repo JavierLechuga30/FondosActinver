@@ -192,7 +192,7 @@ colors = {
     'button_text': '#FFFFFF'
 }
 color_scale = px.colors.sequential.Blues_r
-index_color = '#DAA520'
+index_color = '#B6A269'
 asset_colors = color_scale[1:]
 color_scale_extern = px.colors.sequential.Plotly3
 
@@ -372,6 +372,9 @@ def update_graphs(n_clicks, top_n_clicks, start_date, end_date, top):
         graphs.append(fig)
     return graphs
 
+# Corremos app
+if __name__ == '__main__':
+    app.run_server(debug=True)
 
     
     
