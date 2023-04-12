@@ -11,20 +11,15 @@ import datetime as dt
 import yfinance as yf
 import pandas as pd
 import pandas_datareader as web
-from datetime import datetime
-import matplotlib.pyplot as plt
 import datetime
-import matplotlib.ticker as mtick
 import numpy as np
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
-import plotly.graph_objs as go
 from flask import Flask, render_template, request
+import plotly.graph_objs as go
 import plotly.express as px
-
-
 
 app = Flask(__name__)
 server=app.server
