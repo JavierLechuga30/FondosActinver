@@ -22,7 +22,7 @@ import plotly.graph_objs as go
 import plotly.express as px
 
 app = Flask(__name__)
-server=app.server
+dash_app = dash.Dash(server=app)
 
 #lIMPIEZA CETES
 cete=pd.read_csv('Cetes.csv')
