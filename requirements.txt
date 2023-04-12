@@ -6,9 +6,6 @@ pandas
 pandas_datareader 
 datetime
 numpy 
-dash_core_components 
-dash_html_components 
-dash.dependencies 
 plotly.graph_objs 
 flask 
 plotly.express 
