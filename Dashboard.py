@@ -12,7 +12,6 @@ import yfinance as yf
 import pandas as pd
 import pandas_datareader as web
 from datetime import datetime
-from scipy.stats import pearsonr
 import matplotlib.pyplot as plt
 import datetime
 import matplotlib.ticker as mtick
