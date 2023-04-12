@@ -377,9 +377,6 @@ def update_graphs(n_clicks, top_n_clicks, start_date, end_date, top):
                 )
         graphs.append(fig)
     return graphs
-# Corremos app
-if __name__ == '__main__':
-    app.run_server(debug=True)
 
 
     
