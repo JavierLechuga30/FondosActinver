@@ -205,7 +205,7 @@ app.layout = html.Div(
         ], style={'display': 'flex', 'align-items': 'center', 'padding': '20px 50px'}),
         html.Div([            html.Label('Seleccione rango de fechas: ', style={'font-weight': 'bold'}),            html.Div([                dcc.DatePickerRange(                    id='date-picker-range',                    min_date_allowed=datetime.datetime(2020, 1, 1),                    max_date_allowed=datetime.datetime.today(),                    start_date=datetime.datetime(2022, 1, 1),                    end_date=datetime.datetime.today(),                    style={'font-family': 'Helvetica Neue', 'width': '200px'}                ),                html.Div([                    html.Button('Submit', id='submit-button', style={'background-color': colors['button'], 'color': colors['button_text'], 'border': 'none', 'padding': '10px', 'cursor': 'pointer', 'display': 'inline-block', 'float': 'left'})
                 ]),
-                html.Label('Seleccione top activos externos a visualizar:', style={'font-weight': 'bold', 'margin-left': '10px'}),
+                html.Label('Seleccione top fondos externos a visualizar:', style={'font-weight': 'bold', 'margin-left': '10px'}),
                 dcc.Dropdown(
                     id='top-dropdown',
                     options=[
