@@ -346,7 +346,7 @@ def update_graphs(n_clicks, top_n_clicks, start_date, end_date, top):
             
         fig.update_layout(
             title=index_title,
-            yaxis_tickformat='%{y:.2%}',
+            yaxis_tickformat='.0%',
             plot_bgcolor='white',
             paper_bgcolor='#24425C',
             font=dict(
