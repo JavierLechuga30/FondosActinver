@@ -345,35 +345,36 @@ def update_graphs(n_clicks, top_n_clicks, start_date, end_date, top):
 
             
         fig.update_layout(
-                title=index_title,
-                yaxis_tickformat='%',
-                plot_bgcolor='white',
-                paper_bgcolor='#24425C',
-                font=dict(
-                    family='Lato',
+            title=index_title,
+            yaxis_tickformat='%{y:.2%}',
+            plot_bgcolor='white',
+            paper_bgcolor='#24425C',
+            font=dict(
+                family='Lato',
+                color='#D3D3D3'
+                ),
+            xaxis=dict(
+                tickfont=dict(
                     color='#D3D3D3'
                     ),
-                xaxis=dict(
-                    tickfont=dict(
-                        color='#D3D3D3'
-                        ),
-                    gridcolor='#7f7f7f',
-                    gridwidth=1
+                gridcolor='#7f7f7f',
+                gridwidth=1
+                ),
+            yaxis=dict(
+                tickfont=dict(
+                    color='#D3D3D3'
                     ),
-                yaxis=dict(
-                    tickfont=dict(
-                        color='#D3D3D3'
-                        ),
-                    side='right',
-                    gridcolor='#7f7f7f',
-                    gridwidth=1
-                    ),
-                legend=dict(
-                    font=dict(
-                        color='#D3D3D3'
-                        )
+                side='right',
+                gridcolor='#7f7f7f',
+                gridwidth=1,
+                tickformat='%{y:.2%}'
+                ),
+            legend=dict(
+                font=dict(
+                    color='#D3D3D3'
                     )
                 )
+            )
         graphs.append(fig)
     return graphs
 
