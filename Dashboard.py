@@ -63,7 +63,7 @@ for grupo in empresas_repetidasb:
 
 
 #Limpieza FONDOS ACTINVER SERIE B,B1,B-1
-empresas_actinver=['ACTIREN','ACTIGOB','ACTIMED','ALTERNA','ACTICOB','ESCALA','ACTIPLU','ACTOTAL','ACTIVAR','MAYA','OPTIMO','ACTINMO','OPORT1','SNX','ACTICRE','ACTI500','ESFERA','SALUD','ROBOTIK','DINAMO','IMPULSA','PROTEGE','ACTVIDA','EVEREST','MAXIMO','ACTIG+','ACTIG+2','ACTDUAL','ALTERN','DIGITAL','ECOFUND','TEMATIK','OPORT1','ACT2025','ACT2030','ACT2035','ACT2040','ACT4560','SURASIA']
+empresas_actinver=['ACTIREN','ACTIGOB','ACTIMED','ALTERNA','ACTICOB','ESCALA','ACTIPLU','ACTOTAL','ACTIVAR','MAYA','OPTIMO','ACTINMO','OPORT1','SNX','ACTICRE','ACTI500','ESFERA','SALUD','ROBOTIK','DINAMO','IMPULSA','PROTEGE','ACTVIDA','EVEREST','MAXIMO','ACTIG+','ACTIG+2','ACTDUAL','ALTERN','DIGITAL','ECOFUND','TEMATIK','OPORT1','ACT2025','ACT2030','ACT2035','ACT2040','ACT4560']
 fondos_actinver=fondos[fondos['EMISORA'].isin(empresas_actinver)]
 fondos_actinverb=fondos_actinver[fondos_actinver['SERIE'].isin(series)]
 
@@ -102,6 +102,7 @@ idx_data = idx_data.fillna(method='ffill').loc[:'2023-03-27']
 idx_datarend= idx_data.pct_change()
 
 #RENDIMIENTO DE TODOS LOS FONDOS CON SERIES B, B1, B-1
+fondos_b.drop(columns=empresas_actinver, inplace=True)
 fondos_rendb=fondos_b.pct_change()
 
 #RENDIMIENTOS FONDOS ACTINVER SERIES B, B1, B-1
@@ -201,7 +202,7 @@ color_scale_extern = px.colors.sequential.Plotly3
 ## Definimos layout
 app.layout = html.Div(
     style={'backgroundColor': colors['background'], 'color': colors['text'], 'font-family': 'Helvetica Neue'},
-    children=[        html.Div([            html.Iframe(src='https://www.actinver.com/o/the-example/images/logo-actinver.svg', style={'height': '50px', 'opacity': '1'}),            html.H1('Fondos', style={'font-family': 'Helvetica', 'color': colors['text'], 'margin-left': '20px', 'margin-top': '5px', 'margin-bottom': '5px', 'padding-left': '10px', 'border-left': '3px solid ' + colors['line']})
+    children=[        html.Div([            html.Iframe(src='https://www.actinver.com/o/the-example/images/logo-actinver.svg', style={'height': '50px', 'opacity': '1'}),            html.H1('Fondos de Inversión', style={'font-family': 'Helvetica', 'color': colors['text'], 'margin-left': '20px', 'margin-top': '5px', 'margin-bottom': '5px', 'padding-left': '10px', 'border-left': '3px solid ' + colors['line']})
         ], style={'display': 'flex', 'align-items': 'center', 'padding': '20px 50px'}),
         html.Div([            html.Label('Seleccione rango de fechas: ', style={'font-weight': 'bold'}),            html.Div([                dcc.DatePickerRange(                    id='date-picker-range',                    min_date_allowed=datetime.datetime(2020, 1, 1),                    max_date_allowed=datetime.datetime.today(),                    start_date=datetime.datetime(2022, 1, 1),                    end_date=datetime.datetime.today(),                    style={'font-family': 'Helvetica Neue', 'width': '200px'}                ),                html.Div([                    html.Button('Submit', id='submit-button', style={'background-color': colors['button'], 'color': colors['button_text'], 'border': 'none', 'padding': '10px', 'cursor': 'pointer', 'display': 'inline-block', 'float': 'left'})
                 ]),
@@ -221,10 +222,10 @@ app.layout = html.Div(
                 ]),
             ], style={'display': 'flex', 'align-items': 'center', 'justify-content': 'space-between'}),
         ], style={'display': 'flex', 'align-items': 'center', 'margin-bottom': '20px'}),
-        html.Div([dcc.Graph(id='graph-1')], style={'margin-bottom': '20px'}),
+        html.Div([dcc.Graph(id='graph-4')], style={'margin-bottom': '20px'}),
         html.Div([dcc.Graph(id='graph-2')], style={'margin-bottom': '20px'}),
         html.Div([dcc.Graph(id='graph-3')], style={'margin-bottom': '20px'}),
-        html.Div([dcc.Graph(id='graph-4')], style={'margin-bottom': '20px'}),
+        html.Div([dcc.Graph(id='graph-1')], style={'margin-bottom': '20px'}),
     ]
 )
 @app.callback(
@@ -262,15 +263,19 @@ def update_graphs(n_clicks, top_n_clicks, start_date, end_date, top):
         index_data = idx_daily_change[index]
         index_return = (idx_fecha[index].iloc[-1] / idx_fecha[index].iloc[0]) - 1
         if index == 'AGG':
+            index_title = 'Renta Fija Global'
             asset_data = fondos_daily_change[agg_actb]
             return_data = fondos_fecha[agg_actb]
         elif index == 'GSPC':
+            index_title = 'Renta Variable Global'
             asset_data = fondos_daily_change[gspc_actb]
             return_data = fondos_fecha[gspc_actb]
         elif index == 'MXX':
+            index_title = 'Renta Variable Local'
             asset_data = fondos_daily_change[mxx_actb]
             return_data = fondos_fecha[mxx_actb]
         elif index == 'Cete':
+            index_title = 'Renta Fija Local'
             asset_data = fondos_daily_change[cete_actbb]
             return_data = fondos_fecha[cete_actbb]
             
@@ -336,11 +341,11 @@ def update_graphs(n_clicks, top_n_clicks, start_date, end_date, top):
 
             for asset, total_return in sorted_external_funds:
                 color = color_scale_extern[top_assets.index(asset) % len(color_scale_extern)]
-                fig.add_trace(go.Scatter(x=fondos_b_daily_change.index, y=fondos_b_daily_change[asset], name=f"{asset} ({total_return:.2%})*", line=dict(color=color, width=1.3), opacity=0.7, legendgroup="External Funds"))
+                fig.add_trace(go.Scatter(x=fondos_b_daily_change.index, y=fondos_b_daily_change[asset], name=f"{asset} ({total_return:.2%})", line=dict(color=color, width=1.3), opacity=0.7, legendgroup="Fondos Externos"))
 
             
         fig.update_layout(
-                title=index + " vs fondos",
+                title=index_title,
                 yaxis_tickformat='%',
                 plot_bgcolor='white',
                 paper_bgcolor='#24425C',
@@ -376,6 +381,10 @@ def update_graphs(n_clicks, top_n_clicks, start_date, end_date, top):
 if __name__ == '__main__':
     app.run_server(debug=True)
 
+
+    
+    
+    
     
     
     
